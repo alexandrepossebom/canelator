@@ -4,6 +4,6 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    IrcClient irc("irc.oftc.net", 6667,"#masmorras","canelator");
+    IrcClient irc("chat.freenode.net", 6667,"#canelada","canelator");
     return a.exec();
 }
