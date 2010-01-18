@@ -17,8 +17,9 @@ void Canelada::setDate(QString tmp)
 
 void Canelada::addPlayer(QString name)
 {
-    players.append(name);
-    players.removeDuplicates();
+
+    if(!players.contains(name))
+        players.append(name);
     players.sort();
     persist();
 }
