@@ -16,18 +16,22 @@ void Canelada::setDate(QString tmp)
 }
 
 void Canelada::addPlayer(QString name)
-{
-
+{    
     if(!players.contains(name))
+    {
         players.append(name);
-    players.sort();
-    persist();
+        players.sort();
+        persist();
+    }
 }
 
 void Canelada::remPlayer(QString name)
 {
-    players.removeAt(players.indexOf(name));
-    persist();
+    if(players.contains(name))
+    {
+        players.removeAt(players.indexOf(name));
+        persist();
+    }
 }
 
 void Canelada::clear()
