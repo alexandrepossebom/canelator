@@ -97,6 +97,14 @@ void IrcClient::parseLine(const QString &cmd)
         {
             updateTopic();
         }
+        else if (line.contains(":!update"))
+        {
+            updateTopic();
+        }
+        else if (line.contains(":!quem"))
+        {
+            sendPrivMessage(m_channel,canelada.getTopic());
+        }
     }
 }
 
