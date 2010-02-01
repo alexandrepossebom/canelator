@@ -101,7 +101,7 @@ void IrcClient::parseLine(const QString &cmd)
         {
             updateTopic();
         }
-        else if (line.contains(":!quem"))
+        else if (line.contains(":!list"))
         {
             sendPrivMessage(m_channel,canelada.getTopic());
         }
@@ -113,5 +113,6 @@ void IrcClient::printHelp(const QString &nick)
 {
     sendPrivMessage(m_channel, "!clear - remove all players");
     sendPrivMessage(m_channel, "!date: - set a day ex: !date: Today at 10:00");
+    sendPrivMessage(m_channel, "!list: - show players");
     sendPrivMessage(m_channel, "!topic - update topic");
 }
