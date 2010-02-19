@@ -31,7 +31,7 @@ void IrcClient::slotHandleOutput()
 {
     while (!atEnd())
     {
-        parseLine(readLine());
+        parseLine(QString::fromUtf8(readLine()));
     }
 }
 
