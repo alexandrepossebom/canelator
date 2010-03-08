@@ -71,13 +71,13 @@ void IrcClient::parseLine(const QString &cmd)
         QRegExp regexDay("!date: (.*)$");
         if (line.contains(regexPlayerAdd))
         {
-            canelada.addPlayer(regexPlayerAdd.cap(1));
-            updateTopic();
+            if(canelada.addPlayer(regexPlayerAdd.cap(1)))
+                updateTopic();
         }
         else if (line.contains(regexPlayerRem))
         {
-            canelada.remPlayer(regexPlayerRem.cap(1));
-            updateTopic();
+            if (canelada.remPlayer(regexPlayerRem.cap(1)))
+                updateTopic();
         }
         else if (line.contains(regexDay))
         {
