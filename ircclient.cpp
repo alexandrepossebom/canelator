@@ -1,5 +1,6 @@
 #include "ircclient.h"
 #include <QDebug>
+#include <QtCore/QCoreApplication>
 #include <QStringList>
 #include <QProcess>
 #include <QTimerEvent>
@@ -13,11 +14,20 @@ IrcClient::IrcClient(const QString &host, int port, const QString &channel, cons
 {
     connect(this, SIGNAL(connected()), this, SLOT(slotLogin()));
     connect(this, SIGNAL(readyRead()), this, SLOT(slotHandleOutput()));
+    connect(this, SIGNAL(error(QAbstractSocket::SocketError)),
+            this, SLOT(slotError(QAbstractSocket::SocketError)));
     connectToHost(m_host, m_port);
 }
 
 IrcClient::~IrcClient()
 {
+}
+
+void IrcClient::quit()
+{
+    abort(); // FIXME is there any chance of recursion via error()?
+    qDebug() << "bye bye";
+    QCoreApplication::quit();
 }
 
 void IrcClient::slotLogin()
@@ -33,6 +43,14 @@ void IrcClient::slotHandleOutput()
     {
         parseLine(QString::fromUtf8(readLine()));
     }
+}
+
+void IrcClient::slotError(QAbstractSocket::SocketError socketError)
+{
+    qDebug() << "connection error: " << errorString();
+
+    if (socketError == QAbstractSocket::RemoteHostClosedError)
+        quit();
 }
 
 void IrcClient::sendCommand(const QString &cmd)

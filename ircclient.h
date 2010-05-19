@@ -16,10 +16,12 @@ public:
 	void parseLine(const QString &cmd);
         void printHelp(const QString &nick);
         void updateTopic();
+        void quit();
 
 public slots:
 	void slotLogin();
 	void slotHandleOutput();
+        void slotError(QAbstractSocket::SocketError);
 
 private:
 	QString m_host;
